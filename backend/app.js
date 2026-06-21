@@ -1,22 +1,17 @@
 const express = require("express");
-require("./services/telegramBot");
+const path = require("path");
 
 const app = express();
+
 app.use(express.json());
+app.use(express.static("frontend"));
 
 app.get("/", (req, res) => {
-  res.json({
-    status: "ONLINE",
-    project: "VPN SAAS V3 REAL"
-  });
+  res.sendFile(path.join(__dirname, "../frontend/login.html"));
 });
 
-app.get("/panel/:id", (req, res) => {
-  res.json({
-    panelId: req.params.id,
-    status: "active",
-    message: "Real panel loaded"
-  });
+app.get("/panel", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/panel.html"));
 });
 
 module.exports = app;
